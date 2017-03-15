@@ -2,12 +2,57 @@
 # author by @xiaoyusilen
 
 import sys
+import os
 import smtplib
+import pandas as pd
 from utils.connect_mysql import MySQL
 
 from email.mime.text import MIMEText
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
+
+# set css style
+HEADER = '''
+    <style type="text/css">
+        body,table{
+            font-size:12px;
+            float: left;
+        }
+        table{
+            table-layout:fixed;
+            empty-cells:show;
+            border-collapse: collapse;
+            margin:0 auto;
+            float: left;
+        }
+        td{
+            height:30px;
+        }
+        .table{
+            border:1px solid #cad9ea;
+            color:#666;
+            float: left;
+        }
+        .table th {
+            background-repeat:repeat-x;
+            height:30px;
+            text-align: center;
+        }
+        .table td,.table th{
+            border:1px solid #cad9ea;
+            padding:0 1em 0;
+        }
+        .table tr.alter{
+            background-color:#f5fafe;
+        }
+    </style>
+    <body>
+'''
+FOOTER = '''
+    </body>
+</html>
+'''
 
 # 发送邮件函数
 def send_mail(to_list, sub, text):
@@ -31,13 +76,48 @@ def send_mail(to_list, sub, text):
         print str(e)
         return False
 
-# write something to mail
-text = "test"
+def send_query_data():
 
-# 定义发送列表
-mail_text = text
-mailto_list = ["yourname@example.com"]
-send_mail(mailto_list, 'test', mail_text)
+    # query some data from database
+    db = MySQL()
+    query_sql = "select * from test_table"
+    db.query(query_sql)
+    result = db.fetchOneRow()
 
+    def convertToHtml(result,title):
+        d = {}
+        index = 0
+        for t in title:
+            d[t]=result[index]
+            index = index+1
+        df = pd.DataFrame(d)
+        df = df[title]
+        # use css style
+        h = df.to_html(index=False,classes='table')
+        return h
 
-print "success"
+    if __name__ == '__main__':
+        result = [result]
+        title = [u'result']
+        # save as Temporary Files
+        with open('test.html', 'w') as f:
+            f.write(HEADER)
+            f.write(convertToHtml(result,title))
+            f.write(FOOTER)
+
+    # 定义发送列表
+    file_object = open('test.html')
+    try:
+        all_the_text = file_object.read()
+    finally:
+        file_object.close()
+        # delete Temporary Files
+        os.remove('test.html')
+    mailto_list = ["yourname@example.com"]
+    # 邮件标题
+    mail_title = 'test_mail'
+    send_mail(mailto_list, mail_title, all_the_text)
+
+    print "send successfully"
+
+send_mail()
