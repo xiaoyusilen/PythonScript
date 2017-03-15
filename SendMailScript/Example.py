@@ -3,6 +3,7 @@
 
 import sys
 import smtplib
+from utils.connect_mysql import MySQL
 
 from email.mime.text import MIMEText
 reload(sys)
@@ -37,5 +38,6 @@ text = "test"
 mail_text = text
 mailto_list = ["yourname@example.com"]
 send_mail(mailto_list, 'test', mail_text)
+
 
 print "success"
