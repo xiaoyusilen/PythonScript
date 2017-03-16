@@ -17,13 +17,12 @@ def send_query_data():
     db.query(query_sql)
     result = db.fetchOneRow()
 
-    if __name__ == '__main__':
-        result = [result]
-        title = ['Title']
-        html = ""
-        html = html + (HEADER)
-        html = html + (convertToHtml(result,title))
-        html = html + (FOOTER)
+    result = [result]
+    title = ['Title']
+    html = ""
+    html = html + (HEADER)
+    html = html + (convertToHtml(result,title))
+    html = html + (FOOTER)
 
     # 定义发送列表
     mailto_list = ["yourname@example.com"]
