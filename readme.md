@@ -17,3 +17,10 @@ Do like this.
 8. `deactivate`
 
 Then, try it.
+
+# Suggestion
+
+- I just tell you how to use this code. But if you want to push your code to GitHub, please add this in your `.gitignore`
+```
+    *.conf
+```

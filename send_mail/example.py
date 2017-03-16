@@ -17,18 +17,18 @@ def send_query_data():
     db.query(query_sql)
     result = db.fetchOneRow()
 
+    # query_result
     result = [result]
     title = ['Title']
     html = combine_html(convertToHtml(result,title))
 
-    # 定义发送列表
+    # send_list
     mailto_list = ["yourname@example.com"]
-    # 邮件标题
+
+    # maile_title
     mail_title = 'test_mail'
     send_mail(mailto_list, mail_title, html)
 
     print "send successfully"
 
 send_mail()
-
-# Use this part of code, you can select the data you want, generate a report and send it to your email-list.
