@@ -33,3 +33,5 @@ def send_query_data():
     print "send successfully"
 
 send_mail()
+
+# Use this part of code, you can select the data you want, generate a report and send it to your email-list.
