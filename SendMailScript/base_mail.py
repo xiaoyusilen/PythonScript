@@ -78,3 +78,10 @@ def convertToHtml(result,title):
     df = df[title]
     h = df.to_html(index=False,classes='table')
     return h
+
+def combine_html(object):
+    html = ""
+    html = html + (HEADER)
+    html = html + (object)
+    html = html + (FOOTER)
+    return html

@@ -4,7 +4,7 @@
 import sys
 
 from utils.connect_mysql import MySQL
-from base_mail import send_mail,HEADER,FOOTER,convertToHtml
+from base_mail import send_mail,convertToHtml,combine_html
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -19,10 +19,7 @@ def send_query_data():
 
     result = [result]
     title = ['Title']
-    html = ""
-    html = html + (HEADER)
-    html = html + (convertToHtml(result,title))
-    html = html + (FOOTER)
+    html = combine_html(convertToHtml(result,title))
 
     # 定义发送列表
     mailto_list = ["yourname@example.com"]
