@@ -8,7 +8,7 @@ import ConfigParser
 MySQL connect select insert update delete operate
 '''
 
-# 连接线上数据库，用于查询
+# 连接数据库，用于查询
 class MySQL(object):
     error_code = ''  # MySQL错误码
     _instance = None  # 实例
@@ -134,8 +134,6 @@ class MySQL(object):
         self.__del__()
 
 if __name__ == '__main__':
-    # import requests
-    import json
     import sys
     reload(sys)
     sys.setdefaultencoding('utf-8')
