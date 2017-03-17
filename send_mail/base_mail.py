@@ -2,6 +2,8 @@
 # author by @xiaoyusilen
 
 import smtplib
+import ConfigParser
+import email.Utils
 import pandas as pd
 from email.mime.text import MIMEText
 
@@ -47,21 +49,33 @@ FOOTER = '''
 '''
 
 # 发送邮件函数
-def send_mail(to_list, sub, text):
+def send_mail(to_list, cc_list, sub, text):
 
-    # 设置服务器名称、用户名、密码以及邮件后缀
-    mail_host = "smtp.letv.cn"
-    mail_user = "LeShare_info@le.com"
-    mail_pass = "arH05#jgvjvT"
+    conf = ConfigParser.ConfigParser()
+    conf.read('config.conf')
+    # 从配置文件中读取邮箱账号密码
+    mailconfig = {
+        'host': conf.get("mail", "mail_host"),
+        'user': conf.get("mail", "mail_user"),
+        'pass': conf.get("mail", "mail_pass"),
+    }
     msg = MIMEText(text, _subtype='html', _charset='utf-8')
     msg['Subject'] = sub
-    msg['From'] = 'LeShare_info@le.com'
-    msg['To'] = ";".join(to_list)
+    # send and cc list
+    toAll = []
+    if to_list[0]:
+        # add send list
+        msg['To'] = email.Utils.COMMASPACE.join(to_list)
+        [toAll.append(i) for i in to_list]
+    if cc_list[0]:
+        # add cc list
+        msg['Cc'] = email.Utils.COMMASPACE.join(cc_list)
+        [toAll.append(i) for i in cc_list]
     try:
         send_smtp = smtplib.SMTP()
-        send_smtp.connect(mail_host)
-        send_smtp.login(mail_user, mail_pass)
-        send_smtp.sendmail('LeShare_info@le.com', to_list, msg.as_string())
+        send_smtp.connect(mailconfig['host'])
+        send_smtp.login(mailconfig['user'], mailconfig['pass'])
+        send_smtp.sendmail(mailconfig['user'], to_list, msg.as_string())
         send_smtp.close()
         return True
     except Exception, e:

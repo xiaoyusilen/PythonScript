@@ -1,5 +1,5 @@
-
-
+# coding:utf-8
+# author by @xiaoyusilen
 
 import sys
 
@@ -24,10 +24,11 @@ def send_query_data():
 
     # send_list
     mailto_list = ["yourname@example.com"]
+    cc_list = ["yourname@example", "someother@example.com"]
 
     # maile_title
     mail_title = 'test_mail'
-    send_mail(mailto_list, mail_title, html)
+    send_mail(mailto_list, cc_list, mail_title, html)
 
     print "send successfully"
 
