@@ -28,8 +28,9 @@ def send_query_data():
 
     # maile_title
     mail_title = 'test_mail'
-    send_mail(mailto_list, cc_list, mail_title, html)
-
-    print "send successfully"
+    if send_mail(mailto_list, cc_list, mail_title, html):
+        print "send successfully"
+    else:
+        print "send failed"
 
 send_mail()
