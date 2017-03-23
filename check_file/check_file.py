@@ -3,19 +3,19 @@
 import functools
 
 def is_latin(c):
-    return ord(c) < 256
+    return ord(c) < 126
 
 # input_file
-input_file = ''
+input_file = 'new.md'
 # output_file
-output_file = ''
+output_file = 'll.md'
 
 # Some characters should not have space on either side.
 def allow_space(c):
     return not c.isspace() and not (c in '，。；「」：《》『』、[]（）*_')
 
 def add_space_at_boundry(prefix, next_char):
-    if len(prefix) == 0:
+    if not len(prefix):
         return next_char
     if is_latin(prefix[-1]) != is_latin(next_char) and \
             allow_space(next_char) and allow_space(prefix[-1]):
