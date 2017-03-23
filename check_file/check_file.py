@@ -6,9 +6,9 @@ def is_latin(c):
     return ord(c) < 126
 
 # input_file
-input_file = 'new.md'
+input_file = ''
 # output_file
-output_file = 'll.md'
+output_file = ''
 
 # Some characters should not have space on either side.
 def allow_space(c):
