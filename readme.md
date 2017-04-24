@@ -1,4 +1,4 @@
-# PythonScript
+# PythonScript [![Circle CI](https://circleci.com/gh/xiaoyusilen/PythonScript.svg?style=svg)](https://circleci.com/gh/xiaoyusilen/PythonScript) [![Travis CI](https://api.travis-ci.org/xiaoyusilen/PythonScript.svg?branch=master)](https://travis-ci.org/xiaoyusilen/PythonScript)
 
 Here are some Python scripts.
 
